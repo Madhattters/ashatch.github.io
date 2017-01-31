@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "aws s3 cli wildcards"
+date:   2018-01-31 14:37:00 +0000
+categories: aws s3 cli
+---
+
+awscli does support wildcarding when copying, just don't rely on shell wildcarding.
+
+So for this (which fails):
+
+{% highlight %}
+aws s3 cp ./file-prefix* s3://my-bucket/target/folder
+{% endhighlight %}
+
+do this:
+
+{% highlight %}
+aws s3 cp ./ s3://my-bucket/target/folder --recursive --exclude "*" --include "file-prefix*"
+{% endhighlight %}
+
+Simples.
